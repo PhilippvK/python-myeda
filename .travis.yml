@@ -1,0 +1,10 @@
+# Filename: .travis.yml
+
+language: python
+
+python:
+- "3.3"
+- "3.4"
+
+# command to run tests
+script: make test

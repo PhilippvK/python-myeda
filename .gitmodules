@@ -1,0 +1,6 @@
+[submodule "qm"]
+	path = qm
+	url = https://github.com/tpircher/quine-mccluskey.git
+[submodule "pyeda"]
+	path = pyeda
+	url = https://github.com/cjdrake/pyeda.git

@@ -1,0 +1,10 @@
+# Filename: .gitignore
+
+# Python
+*.py[cod]
+
+# IPython
+#.ipynb*
+
+# Documentation
+build/**
