@@ -1,0 +1,13 @@
+include Makefile
+include LICENSE
+include README.md
+include requirements.txt
+
+recursive-include doc *
+
+#include extension/boolexpr/*
+
+include thirdparty/qm/quine_mccluskey/*
+
+#include pyeda/logic/test/top95.txt
+#include pyeda/logic/test/top95_solns.txt
