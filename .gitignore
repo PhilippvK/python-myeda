@@ -4,7 +4,15 @@
 *.py[cod]
 
 # IPython
-#.ipynb*
+.ipynb*
 
 # Documentation
 build/**
+
+# Tests
+.coverage
+cover
+
+# Packages
+*.egg
+*.egg-info
