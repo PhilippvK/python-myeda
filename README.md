@@ -5,3 +5,5 @@
 TODO
 
 travis test
+
+Checkout the [Documentation](https://philippvk.github.io/python-myeda/)! [![made-with-sphinx-doc](https://img.shields.io/badge/Made%20with-Sphinx-1f425f.svg)](https://www.sphinx-doc.org/) ![stability-wip](https://img.shields.io/badge/stability-work_in_progress-lightgrey.svg)
