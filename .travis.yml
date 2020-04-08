@@ -9,16 +9,11 @@ os:
   - linux
 
 # command to run tests
-script: make test
+script: make cover
 
 # Install the codecov pip dependency
 install:
   - pip install codecov
-
-# Run the unit test
-#script:
-#  - coverage run tests.py
-
 # Push the results back to codecov
 after_success:
   - codecov
