@@ -14,7 +14,7 @@ install:
 # command to run tests
 script:
   - make cover
-  - travis-sphinx build --source=doc
+  - travis-sphinx build --source=doc/source
 
 # Push the results back to codecov
 after_success:
