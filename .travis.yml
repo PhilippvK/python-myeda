@@ -9,7 +9,7 @@ dist: xenial
 # Install the codecov pip dependency
 install:
   - pip install codecov
-  - pip install --user travis-sphinx
+  - pip install travis-sphinx
 
 # command to run tests
 script:
