@@ -40,9 +40,9 @@ with open('README.md') as fin:
 with open('LICENSE') as fin:
     LICENSE = fin.read()
 
-URL = "https://github.com/PhilippvK/eda-playground/myEDA"
+URL = "https://github.com/PhilippvK/python-myeda"
 
-DOWNLOAD_URL = "https://github.com/PhilippvK/eda-playground/releases"
+DOWNLOAD_URL = "https://github.com/PhilippvK/python-myeda/releases"
 
 CLASSIFIERS = [
     "License :: OSI Approved :: MIT License",
