@@ -16,3 +16,4 @@ cover
 # Packages
 *.egg
 *.egg-info
+dist
