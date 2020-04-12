@@ -18,3 +18,6 @@ pyeda==0.28.0
 termcolor==1.1.0
 
 git+git://github.com/tpircher/quine-mccluskey.git
+
+# TODO: remove
+wavedrom==2.0.3.post2

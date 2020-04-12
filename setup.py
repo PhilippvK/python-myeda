@@ -78,6 +78,7 @@ install_requires=[
    'termcolor>=1.1.0',
    'pyeda>=0.28.0',
    'quine-mccluskey @ https://github.com/tpircher/quine-mccluskey',
+   'wavedrom>=2.0.3.post2'
 ]
 
 setup(
