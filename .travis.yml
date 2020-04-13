@@ -16,11 +16,10 @@ jobs:
     - stage: cover
       name: "Codecov"
       script: "make cover"
+      after_success:
+        - codecov
     - stage: doc
       name: "Sphinx"
       script: "travis-sphinx build --source=doc/source"
-
-# Push the results back to codecov
-after_success:
-  - codecov
-  - travis-sphinx deploy
+      after_success:
+        - travis-sphinx deploy
