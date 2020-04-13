@@ -12,9 +12,9 @@ jobs:
     - stage: lint
       name: "Pylint"
       install:
-        - pip install pylint
+        - sudo apt-get install -qy pylint3
         - sudo apt-get install -qy bc
-      script: set -o pipefail ; (pylint myeda --rcfile .pylintrc | tee .pylint.log) || (test $(bc -l <<< $(sed -re "s_.* ((-)?[0-9\.]+)/10.*_\1>3_;t;d" .pylint.log)) -eq 1)
+      script: set -o pipefail ; (pylint3 myeda --rcfile .pylintrc | tee .pylint.log) || (test $(bc -l <<< $(sed -re "s_.* ((-)?[0-9\.]+)/10.*_\1>3_;t;d" .pylint.log)) -eq 1)
     - stage: cover
       name: "Codecov"
       install:
