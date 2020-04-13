@@ -5,6 +5,7 @@ from pyeda.inter import *
 from collections import OrderedDict
 import wavedrom
 
+
 class State(object):
 
     def __init__(self, t, signals, evaluated, events):
@@ -14,10 +15,13 @@ class State(object):
         self.events = events
 
     def __str__(self):
-        return str("T=" + str(self. t) + "\t" + str(self.signals) + "\t" + str(self.evaluated) + "\t" + str(self.events))
+        return str("T=" + str(self.t) + "\t" + str(self.signals) + "\t" +
+                   str(self.evaluated) + "\t" + str(self.events))
 
     def __repr__(self):
-        return str("T=" + str(self.t) + "\t" + str(self.signals) + "\t" + str(self.evaluated) + "\t" + str(self.events))
+        return str("T=" + str(self.t) + "\t" + str(self.signals) + "\t" +
+                   str(self.evaluated) + "\t" + str(self.events))
+
 
 class Event(object):
 
@@ -33,6 +37,7 @@ class Event(object):
     def __repr__(self):
         return str((self.signal, int(self.value), self.occured, self.planned))
 
+
 class Sim(object):
 
     def __init__(self, signals, deps, initial_state, stimuli, func, delay, ts):
@@ -45,7 +50,12 @@ class Sim(object):
         self.timeline = []
         self.changes = []
         self.events.extend(self.stimuli)
-        self.timeline.append(State(0, self.initial_state, ["Initial State"], self.stimuli))
+        self.timeline.append(
+            State(
+                0,
+                self.initial_state,
+                ["Initial State"],
+                self.stimuli))
         self.changes = self.events.copy()
         self.exprs = []
         self.func = func
@@ -87,11 +97,17 @@ class Sim(object):
                     m = {expr(e.signal): e.value}
                     v = expr(self. func[d]).restrict(mappings).is_one()
                     if v != expr(new_states[d]).is_one():
-                        new_events.append(Event(d, v, e.planned, e.planned + self.delay))
+                        new_events.append(
+                            Event(
+                                d,
+                                v,
+                                e.planned,
+                                e.planned +
+                                self.delay))
         return new_states, new_events
 
     def simulate(self):
-        print self.timeline[0]
+        print(self.timeline[0])
         while len(self.events) > 0:
             self.evaluated = []
             e = self.pop_events()
@@ -104,7 +120,7 @@ class Sim(object):
             self.changes.extend(e_new)
 #           print("t=" + str(t) + "\t" + str(c_new) + "\t" + str(e_new))
 #           print("t=" + str(t) + "\t" + str(c_new) + "\t" + str(e_new))
-            print self.timeline[-1]
+            print(self.timeline[-1])
 
     def dump_vcd(self):
         events = sorted(self.changes, key=lambda x: x.planned)
@@ -124,7 +140,8 @@ class Sim(object):
             if e.planned > t:
                 t = e.planned
                 ret += "#{}\n".format(t)
-            ret += "b{} {}\n".format(int(e.value), self.signals.index(e.signal))
+            ret += "b{} {}\n".format(int(e.value),
+                                     self.signals.index(e.signal))
         ret += "#{}".format(t+2)
         return ret
 
@@ -166,7 +183,7 @@ class Sim(object):
                 else:
                     if '$var' not in line:
                         gather_vars = False
-                        #print(variables)
+                        # print(variables)
                     else:
                         split = line.split(' ')
                         name = split[-2]
@@ -186,14 +203,16 @@ class Sim(object):
                     value = bool(int(split[0][1:]))
                     timeline[-1].append((variables[label], value))
 
-        step_size = min([ticks[i+1]-ticks[i] for i in range(len(ticks)-1)]) # = 2
-        steps = (ticks[-1]-ticks[0])//step_size # = 18
+        step_size = min([ticks[i+1]-ticks[i]
+                         for i in range(len(ticks)-1)])  # = 2
+        steps = (ticks[-1]-ticks[0])//step_size  # = 18
 
-        #print(list(enumerate(ticks)))
+        # print(list(enumerate(ticks)))
 
         waves = []
         for variable in variables.values():
-            wave = [(t//step_size, val) for (i, t) in enumerate(ticks) for (var, val) in timeline[i] if var == variable]
+            wave = [(t//step_size, val) for (i, t) in enumerate(ticks)
+                    for (var, val) in timeline[i] if var == variable]
             w = ''
             for step in range(steps + 1):
                 changes = [s for (s, v) in wave]
@@ -214,7 +233,8 @@ class Sim(object):
     \"signal\": [\n"""
 
         for i, variable in enumerate(variables.values()):
-            output = output + "        {{ \"name\": \"{}\",\t\"wave\": \"{}\" }}{}\n".format(variable, waves[i], ',' if i < len(variables) - 1 else '')
+            output = output + "        {{ \"name\": \"{}\",\t\"wave\": \"{}\" }}{}\n".format(
+                variable, waves[i], ',' if i < len(variables) - 1 else '')
 
         output = output + """    ],
     "head": {{

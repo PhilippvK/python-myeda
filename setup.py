@@ -66,19 +66,19 @@ TEST_PKGS = [
 
 PACKAGES = MYEDA_PKGS + TEST_PKGS
 
-#EXT_MODULES = [
+# EXT_MODULES = [
 #    Extension('myeda.qm', **QUINEMCCLUSKEY),
-#]
+# ]
 EXT_MODULES = []
 
 SCRIPTS = [
 ]
 
-install_requires=[
-   'termcolor>=1.1.0',
-   'pyeda>=0.28.0',
-   'quine-mccluskey @ https://github.com/tpircher/quine-mccluskey',
-   'wavedrom>=2.0.3.post2'
+install_requires = [
+    'termcolor>=1.1.0',
+    'pyeda>=0.28.0',
+    'quine-mccluskey @ https://github.com/tpircher/quine-mccluskey',
+    'wavedrom>=2.0.3.post2'
 ]
 
 setup(

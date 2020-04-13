@@ -1,19 +1,18 @@
 import collections
 
+
 def onset(f):
     ret = []
     for d in list(f.satisfy_all()):
         od = collections.OrderedDict(reversed(sorted(d.items())))
-        s = str(list(od.keys()))
-        #ss = s.replace('[','').replace(']','').split(', ')
-        ss = s.split(', ')
 
-        l = list(od.values())
+        value_list = list(od.values())
         ll = ''
-        for li in l:
+        for li in value_list:
             ll = ll + str(li)
         ret.append(int(ll, 2))
     return ret
+
 
 def bitstring2expr(bs, v):
     st = ''
@@ -32,6 +31,7 @@ def bitstring2expr(bs, v):
         ss.append(st)
     sst = ' | '.join(ss)
     return sst
+
 
 def variables(f):
     ret = []
