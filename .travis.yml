@@ -7,19 +7,24 @@ os: linux
 dist: xenial
 
 # Install the codecov and sphinx pip dependencies
-install:
-  - pip install codecov
-  - pip install travis-sphinx
-
 jobs:
   include:
+    - stage: lint
+      name: "Pylint"
+      install:
+        - pip install pylint
+      script: make lint
     - stage: cover
       name: "Codecov"
+      install:
+        - pip install codecov
       script: "make cover"
       after_success:
         - codecov
     - stage: doc
       name: "Sphinx"
+      install:
+        - pip install travis-sphinx
       script: "travis-sphinx build --source=doc/source"
       after_success:
         - travis-sphinx deploy
