@@ -13,7 +13,9 @@ jobs:
       name: "Pylint"
       install:
         - pip install pylint
-      script: make lint
+        - sudo apt-get install -qy bc
+      script: set -o pipefail ; (pylint myeda --rcfile .pylintrc | tee .pylint.log) || sed -re "s_.* ([0-9\.]+)/10.*_\1>3_;t;d" .pylint.log ; sed --version ; cat .pylint.log | wc -l
+      #script: set -o pipefail ; (pylint myeda --rcfile .pylintrc | tee .pylint.log) || (test $(bc -l <<< $(sed -re "s_.* ([0-9\.]+)/10.*_\1>3_;t;d" .pylint.log)) -eq 1)
     - stage: cover
       name: "Codecov"
       install:
