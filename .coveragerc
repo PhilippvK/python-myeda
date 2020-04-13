@@ -6,6 +6,7 @@ branch = true
 [report]
 # Regexes for lines to exclude from consideration
 exclude_lines =
+    __version__ =
     # Have to re-enable the standard pragma
     pragma: no cover
 
