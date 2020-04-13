@@ -4,7 +4,7 @@ language: python
 python:
   - "3.6"
 os: linux
-dist: bionic
+dist: xenial
 
 # Install the codecov and sphinx pip dependencies
 jobs:
