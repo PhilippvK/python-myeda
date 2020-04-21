@@ -1,6 +1,5 @@
 '''module docstring'''
-from termcolor import colored, cprint
-
+from termcolor import colored
 
 def print_cube(n, f, prime_implicants, xs):
     '''function docstring'''
