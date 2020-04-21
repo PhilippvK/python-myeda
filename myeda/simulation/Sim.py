@@ -7,7 +7,7 @@
 from pyeda.inter import expr, exprvar
 
 
-class State(object):
+class State:
     '''State Documentation'''
 
     def __init__(self, time, signals, evaluated, events):
@@ -25,7 +25,7 @@ class State(object):
                    str(self.evaluated) + "\t" + str(self.events))
 
 
-class Event(object):
+class Event:
     '''Event Documentation'''
 
     def __init__(self, signal, value, occured, planned):
@@ -41,7 +41,7 @@ class Event(object):
         return str((self.signal, int(self.value), self.occured, self.planned))
 
 
-class Sim(object):
+class Sim:
     '''Sim Documentation'''
 
     def __init__(self, signals, deps, initial_state,
@@ -126,6 +126,7 @@ class Sim(object):
             self.events.extend(events_new)
             self.changes.extend(events_new)
             print(self.timeline[-1])
+        return True
 
     def dump_vcd(self):
         '''return string containing value change dump format'''
