@@ -26,6 +26,7 @@ jobs:
       name: "Sphinx"
       install:
         - pip install travis-sphinx
+        - pip install pyeda
       script: "travis-sphinx build --source=doc/source"
       after_success:
         - travis-sphinx deploy
