@@ -18,7 +18,8 @@ import sys, os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 up2 = os.path.join(os.pardir, os.pardir)
 sys.path.insert(0, os.path.abspath(up2))
-#import myeda
+import myeda
+import pyeda # TODO
 
 # -- General configuration -----------------------------------------------------
 
