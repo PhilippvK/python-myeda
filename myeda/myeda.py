@@ -2,7 +2,7 @@
 
 # IMPORTS
 import collections
-import qm
+#import qm
 from pyeda.inter import expr, exprvar, num2term
 #from termcolor import colored, cprint
 
