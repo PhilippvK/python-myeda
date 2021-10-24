@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>myeda.misc.helpers &#8212; Python EDA Enhancements 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for myeda.misc.helpers</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;helpers docstring&#39;&#39;&#39;</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+
+
+<div class="viewcode-block" id="onset"><a class="viewcode-back" href="../../../myeda.misc.html#myeda.misc.helpers.onset">[docs]</a><span class="k">def</span> <span class="nf">onset</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the 1-set as list of integers, DC not allowed&quot;&quot;&quot;</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">satisfy_all</span><span class="p">()):</span>
+        <span class="n">ordered</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">items</span><span class="p">())))</span>
+
+        <span class="n">literals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ordered</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">tmp_str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">literal</span> <span class="ow">in</span> <span class="n">literals</span><span class="p">:</span>
+            <span class="n">tmp_str</span> <span class="o">=</span> <span class="n">tmp_str</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">literal</span><span class="p">)</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">tmp_str</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+
+<div class="viewcode-block" id="bitstring2expr"><a class="viewcode-back" href="../../../myeda.misc.html#myeda.misc.helpers.bitstring2expr">[docs]</a><span class="k">def</span> <span class="nf">bitstring2expr</span><span class="p">(</span><span class="n">bitstrings</span><span class="p">,</span> <span class="n">variable_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Converts List of Bitstrings to Boolean expressions&quot;&quot;&quot;</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">ret_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">bitstring</span> <span class="ow">in</span> <span class="n">bitstrings</span><span class="p">:</span>
+        <span class="n">tmp_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">bitstring</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">character</span> <span class="o">!=</span> <span class="s1">&#39;-&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                    <span class="n">tmp_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">variable_list</span><span class="p">[</span><span class="n">var</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tmp_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;~&#39;</span> <span class="o">+</span> <span class="n">variable_list</span><span class="p">[</span><span class="n">var</span><span class="p">])</span>
+            <span class="n">var</span> <span class="o">=</span> <span class="n">var</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">term</span> <span class="o">=</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_list</span><span class="p">)</span>
+        <span class="n">ret_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39; | &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ret_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+
+<div class="viewcode-block" id="variables"><a class="viewcode-back" href="../../../myeda.misc.html#myeda.misc.helpers.variables">[docs]</a><span class="k">def</span> <span class="nf">variables</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns all variables if a boolean expression as list of strings&quot;&quot;&quot;</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+        <span class="c1"># ret.append(str(i).replace(&#39;[&#39;,&#39;&#39;).replace(&#39;]&#39;,&#39;&#39;))</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ret</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Python EDA Enhancements</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Philipp van Kempen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

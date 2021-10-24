@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>myeda.simulation.Sim module &#8212; Python EDA Enhancements 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Python EDA Enhancements 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">myeda.simulation.Sim module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-myeda.simulation.Sim">
+<span id="myeda-simulation-sim-module"></span><h1>myeda.simulation.Sim module<a class="headerlink" href="#module-myeda.simulation.Sim" title="Permalink to this headline">¶</a></h1>
+<p>Module Documentation</p>
+<dl class="py class">
+<dt id="myeda.simulation.Sim.Event">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">myeda.simulation.Sim.</span></code><code class="sig-name descname"><span class="pre">Event</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">occured</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planned</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/simulation/Sim.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.simulation.Sim.Event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Event Documentation</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="myeda.simulation.Sim.Sim">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">myeda.simulation.Sim.</span></code><code class="sig-name descname"><span class="pre">Sim</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">signals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stimuli</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timescale</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/simulation/Sim.html#Sim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.simulation.Sim.Sim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Sim Documentation</p>
+<dl class="py method">
+<dt id="myeda.simulation.Sim.Sim.dump_vcd">
+<code class="sig-name descname"><span class="pre">dump_vcd</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/simulation/Sim.html#Sim.dump_vcd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.simulation.Sim.Sim.dump_vcd" title="Permalink to this definition">¶</a></dt>
+<dd><p>return string containing value change dump format</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="myeda.simulation.Sim.Sim.pop_events">
+<code class="sig-name descname"><span class="pre">pop_events</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/simulation/Sim.html#Sim.pop_events"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.simulation.Sim.Sim.pop_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>pops list of events</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="myeda.simulation.Sim.Sim.simulate">
+<code class="sig-name descname"><span class="pre">simulate</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/simulation/Sim.html#Sim.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.simulation.Sim.Sim.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>run simulation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="myeda.simulation.Sim.Sim.update_states">
+<code class="sig-name descname"><span class="pre">update_states</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">events</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/simulation/Sim.html#Sim.update_states"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.simulation.Sim.Sim.update_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>updates the list of states</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="myeda.simulation.Sim.State">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">myeda.simulation.Sim.</span></code><code class="sig-name descname"><span class="pre">State</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluated</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">events</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/simulation/Sim.html#State"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.simulation.Sim.State" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>State Documentation</p>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/myeda.simulation.Sim.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Python EDA Enhancements 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">myeda.simulation.Sim module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Philipp van Kempen.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+    </div>
+  </body>
+</html>

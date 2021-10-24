@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pyeda.util — Utilities &#8212; Python EDA Documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="myeda.misc — Miscellaneous" href="misc.html" />
+    <link rel="prev" title="Reference" href="../reference.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="pyeda-util-utilities">
+<h1><a class="reference internal" href="#module-pyeda.util" title="pyeda.util"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyeda.util</span></code></a> — Utilities<a class="headerlink" href="#pyeda-util-utilities" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><span class="target" id="module-pyeda.util"></span><p>The <a class="reference internal" href="#module-pyeda.util" title="pyeda.util"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyeda.util</span></code></a> module contains top-level utilities,
+such as fundamental functions and decorators.</p>
+<p>Interface Functions:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#pyeda.util.bit_on" title="pyeda.util.bit_on"><code class="xref py py-func docutils literal notranslate"><span class="pre">bit_on()</span></code></a> — Return the value of a number’s bit position</p></li>
+<li><p><a class="reference internal" href="#pyeda.util.clog2" title="pyeda.util.clog2"><code class="xref py py-func docutils literal notranslate"><span class="pre">clog2()</span></code></a> — Return the ceiling log base two of an integer</p></li>
+<li><p><a class="reference internal" href="#pyeda.util.parity" title="pyeda.util.parity"><code class="xref py py-func docutils literal notranslate"><span class="pre">parity()</span></code></a> — Return the parity of an integer</p></li>
+</ul>
+<p>Decorators:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#pyeda.util.cached_property" title="pyeda.util.cached_property"><code class="xref py py-func docutils literal notranslate"><span class="pre">cached_property()</span></code></a></p></li>
+</ul>
+</div></blockquote>
+<div class="section" id="interface-functions">
+<h2>Interface Functions<a class="headerlink" href="#interface-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="pyeda.util.bit_on">
+<code class="sig-prename descclassname"><span class="pre">pyeda.util.</span></code><code class="sig-name descname"><span class="pre">bit_on</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bit</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="reference internal" href="../_modules/pyeda/util.html#bit_on"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyeda.util.bit_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value of a number’s bit position.</p>
+<p>For example, since <span class="math notranslate nohighlight">\(42 = 2^1 + 2^3 + 2^5\)</span>,
+this function will return 1 in bit positions 1, 3, 5:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">bit_on</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">clog2</span><span class="p">(</span><span class="mi">42</span><span class="p">))]</span>
+<span class="go">[0, 1, 0, 1, 0, 1]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyeda.util.clog2">
+<code class="sig-prename descclassname"><span class="pre">pyeda.util.</span></code><code class="sig-name descname"><span class="pre">clog2</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="reference internal" href="../_modules/pyeda/util.html#clog2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyeda.util.clog2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ceiling log base two of an integer <span class="math notranslate nohighlight">\(\ge 1\)</span>.</p>
+<p>This function tells you the minimum dimension of a Boolean space with at
+least N points.</p>
+<p>For example, here are the values of <code class="docutils literal notranslate"><span class="pre">clog2(N)</span></code> for <span class="math notranslate nohighlight">\(1 \le N &lt; 18\)</span>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">clog2</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">18</span><span class="p">)]</span>
+<span class="go">[0, 1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 5]</span>
+</pre></div>
+</div>
+<p>This function is undefined for non-positive integers:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">clog2</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">expected num &gt;= 1</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="pyeda.util.parity">
+<code class="sig-prename descclassname"><span class="pre">pyeda.util.</span></code><code class="sig-name descname"><span class="pre">parity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="reference internal" href="../_modules/pyeda/util.html#parity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyeda.util.parity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the parity of a non-negative integer.</p>
+<p>For example, here are the parities of the first ten integers:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">parity</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="go">[0, 1, 1, 0, 1, 0, 0, 1, 1, 0]</span>
+</pre></div>
+</div>
+<p>This function is undefined for negative integers:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parity</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+    <span class="o">...</span>
+<span class="gr">ValueError</span>: <span class="n">expected num &gt;= 0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="decorators">
+<h2>Decorators<a class="headerlink" href="#decorators" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="pyeda.util.cached_property">
+<code class="sig-prename descclassname"><span class="pre">pyeda.util.</span></code><code class="sig-name descname"><span class="pre">cached_property</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyeda/util.html#cached_property"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyeda.util.cached_property" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a cached property calculated by the input function.</p>
+<p>Unlike the <code class="docutils literal notranslate"><span class="pre">property</span></code> decorator builtin, this decorator will cache the
+return value in order to avoid repeated calculations.
+This is particularly useful when the property involves some non-trivial
+computation.</p>
+<p>For example, consider a class that models a right triangle.
+The hypotenuse <code class="docutils literal notranslate"><span class="pre">c</span></code> will only be calculated once.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">class</span> <span class="nc">RightTriangle</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">c</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">Python EDA</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Python myEDA Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../reference.html">Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pyeda.util</span></code> — Utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">myeda.misc</span></code> — Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../reference.html">Reference</a><ul>
+      <li>Previous: <a href="../reference.html" title="previous chapter">Reference</a></li>
+      <li>Next: <a href="misc.html" title="next chapter"><code class="xref py py-mod docutils literal notranslate"><span class="pre">myeda.misc</span></code> — Miscellaneous</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2012, Chris Drake.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/reference/util.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

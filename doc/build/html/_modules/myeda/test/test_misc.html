@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>myeda.test.test_misc &#8212; Python EDA Enhancements 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for myeda.test.test_misc</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pyeda.inter</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">myeda.misc</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">nose</span>
+
+<div class="viewcode-block" id="test_onset_expr"><a class="viewcode-back" href="../../../myeda.test.html#myeda.test.test_misc.test_onset_expr">[docs]</a><span class="k">def</span> <span class="nf">test_onset_expr</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">onset</span><span class="p">(</span><span class="n">expr</span><span class="p">(</span><span class="s1">&#39;y[0]&amp;~y[1] | ~y[0]&amp;y[1] | y[0]&amp;y[1]&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span></div>
+    <span class="c1"># TODO: allow any order</span>
+
+<div class="viewcode-block" id="test_onset_ttable"><a class="viewcode-back" href="../../../myeda.test.html#myeda.test.test_misc.test_onset_ttable">[docs]</a><span class="k">def</span> <span class="nf">test_onset_ttable</span><span class="p">():</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">exprvars</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">onset</span><span class="p">(</span><span class="n">truthtable</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;00110101&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span></div>
+    <span class="c1"># TODO: allow any order</span>
+
+<span class="c1">#def test_onset_one():</span>
+<span class="c1">#    assert onset(1) == [0,1,2,...] </span>
+<span class="c1">#    assert onset(True) == [0,1,2,...] </span>
+<span class="c1">#    # TODO: allow any order</span>
+
+<span class="c1">#def test_onset_zero():</span>
+<span class="c1">#    assert onset(0) == [] </span>
+<span class="c1">#    assert onset(False) == [] </span>
+
+<div class="viewcode-block" id="test_variables_expr"><a class="viewcode-back" href="../../../myeda.test.html#myeda.test.test_misc.test_variables_expr">[docs]</a><span class="k">def</span> <span class="nf">test_variables_expr</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">variables</span><span class="p">(</span><span class="n">expr</span><span class="p">(</span><span class="s1">&#39;y[0]&amp;~y[1] | ~y[0]&amp;y[1] | y[0]&amp;y[1]&#39;</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;y[0]&#39;</span><span class="p">,</span> <span class="s1">&#39;y[1]&#39;</span><span class="p">]</span></div>
+    <span class="c1"># TODO: allow any order vs. force?</span>
+
+<div class="viewcode-block" id="test_variables_ttable"><a class="viewcode-back" href="../../../myeda.test.html#myeda.test.test_misc.test_variables_ttable">[docs]</a><span class="k">def</span> <span class="nf">test_variables_ttable</span><span class="p">():</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">exprvars</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">variables</span><span class="p">(</span><span class="n">truthtable</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;00110101&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="p">[</span><span class="s1">&#39;x[0]&#39;</span><span class="p">,</span> <span class="s1">&#39;x[1]&#39;</span><span class="p">,</span> <span class="s1">&#39;x[2]&#39;</span><span class="p">]</span></div>
+    <span class="c1"># TODO: allow any order vs. force?</span>
+
+<div class="viewcode-block" id="test_variables_err"><a class="viewcode-back" href="../../../myeda.test.html#myeda.test.test_misc.test_variables_err">[docs]</a><span class="k">def</span> <span class="nf">test_variables_err</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="test_bitstring2expr"><a class="viewcode-back" href="../../../myeda.test.html#myeda.test.test_misc.test_bitstring2expr">[docs]</a><span class="k">def</span> <span class="nf">test_bitstring2expr</span><span class="p">():</span>
+    <span class="k">assert</span> <span class="n">expr</span><span class="p">(</span><span class="n">bitstring2expr</span><span class="p">({</span><span class="s1">&#39;-11&#39;</span><span class="p">,</span> <span class="s1">&#39;00-&#39;</span><span class="p">},[</span><span class="s1">&#39;x[0]&#39;</span><span class="p">,</span><span class="s1">&#39;x[1]&#39;</span><span class="p">,</span><span class="s1">&#39;x[2]&#39;</span><span class="p">]))</span><span class="o">.</span><span class="n">equivalent</span><span class="p">(</span><span class="n">expr</span><span class="p">(</span><span class="s1">&#39;x[0] &amp; x[1] | ~x[1] &amp; ~x[2]&#39;</span><span class="p">))</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>   
+    <span class="n">nose</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Python EDA Enhancements</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Philipp van Kempen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

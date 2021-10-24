@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>myeda.visualization.Cubes &#8212; Python EDA Enhancements 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for myeda.visualization.Cubes</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;module docstring&#39;&#39;&#39;</span>
+<span class="kn">from</span> <span class="nn">termcolor</span> <span class="kn">import</span> <span class="n">colored</span>
+
+<div class="viewcode-block" id="print_cube"><a class="viewcode-back" href="../../../myeda.visualization.html#myeda.visualization.Cubes.print_cube">[docs]</a><span class="k">def</span> <span class="nf">print_cube</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">prime_implicants</span><span class="p">,</span> <span class="n">xs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;function docstring&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ERROR: invalid dimension!&#39;</span><span class="p">)</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">]</span>
+        <span class="n">edge_x</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span>
+        <span class="n">edge_y</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+        <span class="n">edge_nx</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span>
+        <span class="n">edge_ny</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">prime_implicants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">prime_implicants</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+            <span class="n">edge_x</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">edge_y</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">edge_nx</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">edge_ny</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">prime_implicants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">prime_implicants</span><span class="o">.</span><span class="n">is_zero</span><span class="p">():</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prime_implicants</span><span class="p">):</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_x</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_y</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_nx</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_ny</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;     &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;01&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">edge_y</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;11&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;11&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;     &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nx</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;      &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_x</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;y    &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nx</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;      &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_x</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;|    &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nx</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;      &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_x</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+-x  &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;00&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;00&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">edge_ny</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;10&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;white&#39;</span><span class="p">]</span>  <span class="c1"># TODO</span>
+        <span class="n">edge_nxny</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span>
+        <span class="n">edge_nxnz</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span>
+        <span class="n">edge_nynz</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+        <span class="n">edge_nxy</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span>
+        <span class="n">edge_nxz</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span>
+        <span class="n">edge_nyz</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+        <span class="n">edge_xny</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span>
+        <span class="n">edge_xnz</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span>
+        <span class="n">edge_ynz</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+        <span class="n">edge_xy</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span>
+        <span class="n">edge_xz</span> <span class="o">=</span> <span class="s1">&#39;|&#39;</span>
+        <span class="n">edge_yz</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">prime_implicants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">prime_implicants</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+            <span class="n">edge_x</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">edge_y</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">edge_nx</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">edge_ny</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">prime_implicants</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">prime_implicants</span><span class="o">.</span><span class="n">is_zero</span><span class="p">():</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prime_implicants</span><span class="p">):</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_x</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_y</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_nx</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_ny</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># x</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_xny</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_xnz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_xy</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_xz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># nx</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_nxny</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nxnz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nxy</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nxz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># y</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_xy</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_ynz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nxy</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nyz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># ny</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_xny</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nynz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nxny</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nyz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># z</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_xz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nxz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_yz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nyz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># nz</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_xnz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nxnz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_ynz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                    <span class="n">edge_nynz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># nxny</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_nxny</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># nxnz</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_nxnz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># nynz</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_nynz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># nxy</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_nxy</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># nxz</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_nxz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># nyz</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_nyz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># xny</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_xny</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># xnz</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_xnz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># ynz</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_ynz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># xy</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_xy</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># xz</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_xz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+                <span class="c1"># yz</span>
+                <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">restrict</span><span class="p">({</span><span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                    <span class="n">edge_yz</span> <span class="o">=</span> <span class="n">colored</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;        &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;011&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;011&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">9</span><span class="o">*</span><span class="n">edge_yz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;111&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;111&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxy</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;          &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xy</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xz</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;       &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxy</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;         &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xy</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xz</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;      &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxy</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;        &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xy</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xz</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;    &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;010&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;010&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="mi">9</span><span class="o">*</span><span class="n">edge_ynz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;110&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;110&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xz</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;     &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;       &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xz</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;     &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;       &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xz</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;     &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;001&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;001&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;------&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;101&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">1</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;101&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;     &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxny</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;        &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xny</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;y z  &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxny</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;         &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xny</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;|/&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_nxny</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;          &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xnz</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">edge_xny</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;+-x &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;000&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;000&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;---------&#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">colored</span><span class="p">(</span><span class="s1">&#39;100&#39;</span><span class="p">,</span> <span class="s1">&#39;magenta&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span>
+            <span class="p">{</span><span class="n">xs</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xs</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="mi">0</span><span class="p">})</span> <span class="k">else</span> <span class="s1">&#39;100&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ERROR: Unsupported dimension: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">))</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Python EDA Enhancements</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Philipp van Kempen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

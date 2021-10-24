@@ -1,0 +1,340 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>myeda.simulation.Sim &#8212; Python EDA Enhancements 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for myeda.simulation.Sim</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;Module Documentation&#39;&#39;&#39;</span>
+<span class="c1">#!/usr/bin/python3</span>
+
+<span class="c1">#from collections import OrderedDict</span>
+<span class="c1">#import wavedrom</span>
+<span class="c1">#from pyeda.inter import *</span>
+<span class="kn">from</span> <span class="nn">pyeda.inter</span> <span class="kn">import</span> <span class="n">expr</span><span class="p">,</span> <span class="n">exprvar</span>
+
+
+<div class="viewcode-block" id="State"><a class="viewcode-back" href="../../../myeda.simulation.html#myeda.simulation.Sim.State">[docs]</a><span class="k">class</span> <span class="nc">State</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;State Documentation&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">signals</span><span class="p">,</span> <span class="n">evaluated</span><span class="p">,</span> <span class="n">events</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signals</span> <span class="o">=</span> <span class="n">signals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evaluated</span> <span class="o">=</span> <span class="n">evaluated</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">events</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;T=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span>
+                   <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluated</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;T=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span>
+                   <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluated</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Event"><a class="viewcode-back" href="../../../myeda.simulation.html#myeda.simulation.Sim.Event">[docs]</a><span class="k">class</span> <span class="nc">Event</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Event Documentation&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">occured</span><span class="p">,</span> <span class="n">planned</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signal</span> <span class="o">=</span> <span class="n">signal</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">occured</span> <span class="o">=</span> <span class="n">occured</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">planned</span> <span class="o">=</span> <span class="n">planned</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">signal</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">occured</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">planned</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">signal</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">occured</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">planned</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Sim"><a class="viewcode-back" href="../../../myeda.simulation.html#myeda.simulation.Sim.Sim">[docs]</a><span class="k">class</span> <span class="nc">Sim</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;Sim Documentation&#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signals</span><span class="p">,</span> <span class="n">deps</span><span class="p">,</span> <span class="n">initial_state</span><span class="p">,</span>
+                 <span class="n">stimuli</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">delay</span><span class="p">,</span> <span class="n">timescale</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">signals</span> <span class="o">=</span> <span class="n">signals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deps</span> <span class="o">=</span> <span class="n">deps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial_state</span> <span class="o">=</span> <span class="n">initial_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stimuli</span> <span class="o">=</span> <span class="n">stimuli</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeline</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stimuli</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeline</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">State</span><span class="p">(</span>
+                <span class="mi">0</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">initial_state</span><span class="p">,</span>
+                <span class="p">[</span><span class="s2">&quot;Initial State&quot;</span><span class="p">],</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stimuli</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">changes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exprs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timescale</span> <span class="o">=</span> <span class="n">timescale</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">exprs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">exprvar</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sim(&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">,</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Sim.pop_events"><a class="viewcode-back" href="../../../myeda.simulation.html#myeda.simulation.Sim.Sim.pop_events">[docs]</a>    <span class="k">def</span> <span class="nf">pop_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;pops list of events&#39;&#39;&#39;</span>
+        <span class="n">choice</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">choice</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">planned</span>
+                <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="n">event</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">planned</span> <span class="o">==</span> <span class="n">choice</span><span class="p">:</span>
+                <span class="n">choices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">planned</span> <span class="o">&lt;</span> <span class="n">choice</span><span class="p">:</span>
+                <span class="n">choice</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">planned</span>
+                <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="n">event</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="n">choices</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">choices</span></div>
+
+<div class="viewcode-block" id="Sim.update_states"><a class="viewcode-back" href="../../../myeda.simulation.html#myeda.simulation.Sim.Sim.update_states">[docs]</a>    <span class="k">def</span> <span class="nf">update_states</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">events</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;updates the list of states&#39;&#39;&#39;</span>
+        <span class="n">new_states</span> <span class="o">=</span> <span class="n">states</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">new_events</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="n">new_states</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">signal</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">signal</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">deps</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">mappings</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">for</span> <span class="n">signal</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">:</span>
+                    <span class="n">mappings</span><span class="p">[</span><span class="n">expr</span><span class="p">(</span><span class="n">signal</span><span class="p">)]</span> <span class="o">=</span> <span class="n">new_states</span><span class="p">[</span><span class="n">signal</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">deps</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">signal</span><span class="p">]:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">evaluated</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dep</span><span class="p">)</span>
+                    <span class="n">mapping</span> <span class="o">=</span> <span class="p">{</span><span class="n">expr</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">signal</span><span class="p">):</span> <span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">}</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span> <span class="n">func</span><span class="p">[</span><span class="n">dep</span><span class="p">])</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span><span class="n">mappings</span><span class="p">)</span><span class="o">.</span><span class="n">is_one</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="n">expr</span><span class="p">(</span><span class="n">new_states</span><span class="p">[</span><span class="n">dep</span><span class="p">])</span><span class="o">.</span><span class="n">is_one</span><span class="p">():</span>
+                        <span class="n">new_events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="n">Event</span><span class="p">(</span>
+                                <span class="n">dep</span><span class="p">,</span>
+                                <span class="n">value</span><span class="p">,</span>
+                                <span class="n">event</span><span class="o">.</span><span class="n">planned</span><span class="p">,</span>
+                                <span class="n">event</span><span class="o">.</span><span class="n">planned</span> <span class="o">+</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">new_states</span><span class="p">,</span> <span class="n">new_events</span></div>
+
+<div class="viewcode-block" id="Sim.simulate"><a class="viewcode-back" href="../../../myeda.simulation.html#myeda.simulation.Sim.Sim.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;run simulation&#39;&#39;&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeline</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">evaluated</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop_events</span><span class="p">()</span>
+            <span class="n">time</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">planned</span>
+            <span class="n">signals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timeline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">signals_new</span><span class="p">,</span> <span class="n">events_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_states</span><span class="p">(</span><span class="n">signals</span><span class="p">,</span> <span class="n">events</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timeline</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">State</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">signals_new</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluated</span><span class="p">,</span> <span class="n">events_new</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">events_new</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">changes</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">events_new</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timeline</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Sim.dump_vcd"><a class="viewcode-back" href="../../../myeda.simulation.html#myeda.simulation.Sim.Sim.dump_vcd">[docs]</a>    <span class="k">def</span> <span class="nf">dump_vcd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;return string containing value change dump format&#39;&#39;&#39;</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">changes</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">planned</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;$date today $end</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;$timescale </span><span class="si">{}</span><span class="s2"> $end</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timescale</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;$scope module top $end</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">signal</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">):</span>
+            <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;$var reg 1 </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> $end</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">signal</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;$upscope $end</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;$enddefinitions $end</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;#0</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">signal</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="p">):</span>
+            <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;b</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_state</span><span class="p">[</span><span class="n">signal</span><span class="p">]),</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">planned</span> <span class="o">&gt;</span> <span class="n">time</span><span class="p">:</span>
+                <span class="n">time</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">planned</span>
+                <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;#</span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+            <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;b</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
+                                     <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">signal</span><span class="p">))</span>
+        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;#</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span></div></div>
+
+<span class="c1">#    def render_svg(self):</span>
+<span class="c1">#        return wavedrom.render(Sim.vcd2wave(self.dump_vcd())).tostring()</span>
+<span class="c1">#</span>
+<span class="c1">#    def vcd2wave(inp):</span>
+<span class="c1">#        ticks = []</span>
+<span class="c1">#        current_tick = 0</span>
+<span class="c1">#        timeline = []</span>
+<span class="c1">#        variables = OrderedDict()</span>
+<span class="c1">#        searching = True</span>
+<span class="c1">#        gather_vars = True</span>
+<span class="c1">#        for line in inp.split(&#39;\n&#39;):</span>
+<span class="c1">#            if gather_vars:</span>
+<span class="c1">#                if &#39;$timescale&#39; in line:</span>
+<span class="c1">#                    split = line.split(&#39; &#39;)</span>
+<span class="c1">#                    timescale = (int(split[-3]), split[-2])</span>
+<span class="c1">#                elif searching:</span>
+<span class="c1">#                    if &#39;$var&#39; in line:</span>
+<span class="c1">#                        searching = False</span>
+<span class="c1">#                        split = line.split(&#39; &#39;)</span>
+<span class="c1">#                        name = split[-2]</span>
+<span class="c1">#                        label = split[-3]</span>
+<span class="c1">#                        variables[label] = name</span>
+<span class="c1">#                else:</span>
+<span class="c1">#                    if &#39;$var&#39; not in line:</span>
+<span class="c1">#                        gather_vars = False</span>
+<span class="c1">#                        # print(variables)</span>
+<span class="c1">#                    else:</span>
+<span class="c1">#                        split = line.split(&#39; &#39;)</span>
+<span class="c1">#                        name = split[-2]</span>
+<span class="c1">#                        label = split[-3]</span>
+<span class="c1">#                        variables[label] = name</span>
+<span class="c1">#            else:</span>
+<span class="c1">#                if len(line) == 0:</span>
+<span class="c1">#                    break</span>
+<span class="c1">#                if line[0] == &#39;#&#39;:</span>
+<span class="c1">#                    tick = int(line[1:])</span>
+<span class="c1">#                    ticks.append(tick)</span>
+<span class="c1">#                    current_tick = ticks[-1]</span>
+<span class="c1">#                    timeline.append([])</span>
+<span class="c1">#                elif line[0] == &#39;b&#39;:</span>
+<span class="c1">#                    split = line.split(&#39; &#39;)</span>
+<span class="c1">#                    label = split[-1]</span>
+<span class="c1">#                    value = bool(int(split[0][1:]))</span>
+<span class="c1">#                    timeline[-1].append((variables[label], value))</span>
+<span class="c1">#</span>
+<span class="c1">#        step_size = min([ticks[i+1]-ticks[i]</span>
+<span class="c1">#                         for i in range(len(ticks)-1)])  # = 2</span>
+<span class="c1">#        steps = (ticks[-1]-ticks[0])//step_size  # = 18</span>
+<span class="c1">#</span>
+<span class="c1">#        # print(list(enumerate(ticks)))</span>
+<span class="c1">#</span>
+<span class="c1">#        waves = []</span>
+<span class="c1">#        for variable in variables.values():</span>
+<span class="c1">#            wave = [(t//step_size, val) for (i, t) in enumerate(ticks)</span>
+<span class="c1">#                    for (var, val) in timeline[i] if var == variable]</span>
+<span class="c1">#            w = &#39;&#39;</span>
+<span class="c1">#            for step in range(steps + 1):</span>
+<span class="c1">#                changes = [s for (s, v) in wave]</span>
+<span class="c1">#                if step in changes:</span>
+<span class="c1">#                    if wave[changes.index(step)][1]:</span>
+<span class="c1">#                        w = w + &#39;1&#39;</span>
+<span class="c1">#                    else:</span>
+<span class="c1">#                        w = w + &#39;0&#39;</span>
+<span class="c1">#                else:</span>
+<span class="c1">#                    w = w + &#39;.&#39;</span>
+<span class="c1">#            waves.append(w)</span>
+<span class="c1">#</span>
+<span class="c1">#        title = &quot;Simulation Waveform&quot;</span>
+<span class="c1">#</span>
+<span class="c1">#        output = &quot;&quot;</span>
+<span class="c1">#</span>
+<span class="c1">#        output = output + &quot;&quot;&quot;{</span>
+<span class="c1">#    \&quot;signal\&quot;: [\n&quot;&quot;&quot;</span>
+<span class="c1">#</span>
+<span class="c1">#        for i, variable in enumerate(variables.values()):</span>
+<span class="c1">#            output = output + &quot;        {{ \&quot;name\&quot;: \&quot;{}\&quot;,\t\&quot;wave\&quot;: \&quot;{}\&quot; }}{}\n&quot;.format(</span>
+<span class="c1">#                variable, waves[i], &#39;,&#39; if i &lt; len(variables) - 1 else &#39;&#39;)</span>
+<span class="c1">#</span>
+<span class="c1">#        output = output + &quot;&quot;&quot;    ],</span>
+<span class="c1">#    &quot;head&quot;: {{</span>
+<span class="c1">#        &quot;text&quot;: &quot;{}&quot;</span>
+<span class="c1">#    }},</span>
+<span class="c1">#    &quot;foot&quot;: {{</span>
+<span class="c1">#        &quot;text&quot;: &quot;Time [{} {}]&quot;,</span>
+<span class="c1">#        &quot;tick&quot;: {}</span>
+<span class="c1">#    }}</span>
+<span class="c1">#}}&quot;&quot;&quot;.format(title, step_size * ts[0], ts[1], ticks[0] * ts[0])</span>
+<span class="c1">#</span>
+<span class="c1">#        return output</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Python EDA Enhancements</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Philipp van Kempen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

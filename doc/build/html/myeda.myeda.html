@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>myeda.myeda module &#8212; Python EDA Enhancements 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Python EDA Enhancements 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">myeda.myeda module</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-myeda.myeda">
+<span id="myeda-myeda-module"></span><h1>myeda.myeda module<a class="headerlink" href="#module-myeda.myeda" title="Permalink to this headline">¶</a></h1>
+<p>Original version of myEDA (single file, to be replaced!)</p>
+<dl class="py function">
+<dt id="myeda.myeda.bitstring2expr">
+<code class="sig-prename descclassname"><span class="pre">myeda.myeda.</span></code><code class="sig-name descname"><span class="pre">bitstring2expr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bitstrings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/myeda.html#bitstring2expr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.myeda.bitstring2expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts List of Bitstrings to Boolean expressions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="myeda.myeda.cover_condition">
+<code class="sig-prename descclassname"><span class="pre">myeda.myeda.</span></code><code class="sig-name descname"><span class="pre">cover_condition</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minterms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prime_implicants</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/myeda.html#cover_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.myeda.cover_condition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a boolean function for the cover condition</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="myeda.myeda.cover_table">
+<code class="sig-prename descclassname"><span class="pre">myeda.myeda.</span></code><code class="sig-name descname"><span class="pre">cover_table</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minterms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prime_implicants</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/myeda.html#cover_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.myeda.cover_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a cover table of a ?</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="myeda.myeda.map_minterm">
+<code class="sig-prename descclassname"><span class="pre">myeda.myeda.</span></code><code class="sig-name descname"><span class="pre">map_minterm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minterm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/myeda.html#map_minterm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.myeda.map_minterm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps minterms of boolean functions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="myeda.myeda.num2expr">
+<code class="sig-prename descclassname"><span class="pre">myeda.myeda.</span></code><code class="sig-name descname"><span class="pre">num2expr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/myeda.html#num2expr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.myeda.num2expr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a decimal number to a boolean expression</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="myeda.myeda.onset">
+<code class="sig-prename descclassname"><span class="pre">myeda.myeda.</span></code><code class="sig-name descname"><span class="pre">onset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/myeda.html#onset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.myeda.onset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the 1-set as list of integers, DC not allowed</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="myeda.myeda.variables">
+<code class="sig-prename descclassname"><span class="pre">myeda.myeda.</span></code><code class="sig-name descname"><span class="pre">variables</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/myeda/myeda.html#variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#myeda.myeda.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all variables if a boolean expression as list of strings</p>
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/myeda.myeda.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Python EDA Enhancements 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">myeda.myeda module</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, Philipp van Kempen.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.5.2.
+    </div>
+  </body>
+</html>

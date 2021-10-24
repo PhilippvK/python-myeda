@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>myeda.myeda &#8212; Python EDA Enhancements 1.0.0 documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for myeda.myeda</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Original version of myEDA (single file, to be replaced!)&quot;&quot;&quot;</span>
+
+<span class="c1"># IMPORTS</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="c1">#import qm</span>
+<span class="kn">from</span> <span class="nn">pyeda.inter</span> <span class="kn">import</span> <span class="n">expr</span><span class="p">,</span> <span class="n">exprvar</span><span class="p">,</span> <span class="n">num2term</span>
+<span class="c1">#from termcolor import colored, cprint</span>
+
+<span class="c1"># FUNCTIONS</span>
+
+<div class="viewcode-block" id="variables"><a class="viewcode-back" href="../../myeda.html#myeda.myeda.variables">[docs]</a><span class="k">def</span> <span class="nf">variables</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns all variables if a boolean expression as list of strings&quot;&quot;&quot;</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+        <span class="c1"># ret.append(str(i).replace(&#39;[&#39;,&#39;&#39;).replace(&#39;]&#39;,&#39;&#39;))</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+<div class="viewcode-block" id="onset"><a class="viewcode-back" href="../../myeda.html#myeda.myeda.onset">[docs]</a><span class="k">def</span> <span class="nf">onset</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the 1-set as list of integers, DC not allowed&quot;&quot;&quot;</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">satisfy_all</span><span class="p">()):</span>
+        <span class="n">ordered</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">OrderedDict</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">term</span><span class="o">.</span><span class="n">items</span><span class="p">())))</span>
+
+        <span class="n">literals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ordered</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">tmp_str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">literal</span> <span class="ow">in</span> <span class="n">literals</span><span class="p">:</span>
+            <span class="n">tmp_str</span> <span class="o">=</span> <span class="n">tmp_str</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">literal</span><span class="p">)</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">tmp_str</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+<div class="viewcode-block" id="map_minterm"><a class="viewcode-back" href="../../myeda.html#myeda.myeda.map_minterm">[docs]</a><span class="k">def</span> <span class="nf">map_minterm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">minterm</span><span class="p">,</span> <span class="n">xs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Maps minterms of boolean functions&quot;&quot;&quot;</span>
+    <span class="n">mapping</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">character</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">bin</span><span class="p">(</span><span class="n">minterm</span><span class="p">))):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">n</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="k">if</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+            <span class="n">mapping</span><span class="p">[</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+            <span class="n">mapping</span><span class="p">[</span><span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># b</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                    <span class="n">mapping</span><span class="p">[</span><span class="n">xs</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">mapping</span></div>
+
+<div class="viewcode-block" id="bitstring2expr"><a class="viewcode-back" href="../../myeda.html#myeda.myeda.bitstring2expr">[docs]</a><span class="k">def</span> <span class="nf">bitstring2expr</span><span class="p">(</span><span class="n">bitstrings</span><span class="p">,</span> <span class="n">variable_list</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Converts List of Bitstrings to Boolean expressions&quot;&quot;&quot;</span>
+    <span class="n">string</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">ret_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">bitstring</span> <span class="ow">in</span> <span class="n">bitstrings</span><span class="p">:</span>
+        <span class="n">tmp_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">character</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">bitstring</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">character</span> <span class="o">!=</span> <span class="s1">&#39;-&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">character</span> <span class="o">==</span> <span class="s1">&#39;1&#39;</span><span class="p">:</span>
+                    <span class="n">tmp_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">variable_list</span><span class="p">[</span><span class="n">var</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">tmp_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;~&#39;</span> <span class="o">+</span> <span class="n">variable_list</span><span class="p">[</span><span class="n">var</span><span class="p">])</span>
+            <span class="n">var</span> <span class="o">=</span> <span class="n">var</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">term</span> <span class="o">=</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_list</span><span class="p">)</span>
+        <span class="n">ret_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39; | &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ret_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+<div class="viewcode-block" id="cover_table"><a class="viewcode-back" href="../../myeda.html#myeda.myeda.cover_table">[docs]</a><span class="k">def</span> <span class="nf">cover_table</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">minterms</span><span class="p">,</span> <span class="n">prime_implicants</span><span class="p">,</span> <span class="n">xs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Prints a cover table of a ?&#39;&#39;&#39;</span>
+    <span class="n">minterms</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">minterms</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;table </span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;m&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">min</span><span class="p">)</span> <span class="k">for</span> <span class="nb">min</span> <span class="ow">in</span> <span class="n">minterms</span><span class="p">]))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">prime_implicant</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prime_implicants</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; </span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">minterm</span> <span class="ow">in</span> <span class="n">minterms</span><span class="p">:</span>
+            <span class="n">mapping</span> <span class="o">=</span> <span class="n">map_minterm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">minterm</span><span class="p">,</span> <span class="n">xs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prime_implicant</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span><span class="n">mapping</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="num2expr"><a class="viewcode-back" href="../../myeda.html#myeda.myeda.num2expr">[docs]</a><span class="k">def</span> <span class="nf">num2expr</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">vs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Convert a decimal number to a boolean expression&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">expr</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">term</span><span class="p">)</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">num2term</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">vs</span><span class="p">)]))</span></div>
+
+
+<div class="viewcode-block" id="cover_condition"><a class="viewcode-back" href="../../myeda.html#myeda.myeda.cover_condition">[docs]</a><span class="k">def</span> <span class="nf">cover_condition</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">minterms</span><span class="p">,</span> <span class="n">prime_implicants</span><span class="p">,</span> <span class="n">vs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Return a boolean function for the cover condition&#39;&#39;&#39;</span>
+    <span class="n">_</span> <span class="o">=</span> <span class="n">exprvar</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prime_implicants</span><span class="p">))</span>
+    <span class="n">ret_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">minterm</span> <span class="ow">in</span> <span class="n">minterms</span><span class="p">:</span>
+        <span class="n">minterm_expr</span> <span class="o">=</span> <span class="n">num2expr</span><span class="p">(</span><span class="n">minterm</span><span class="p">,</span> <span class="n">vs</span><span class="p">)</span>
+        <span class="n">tmp_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">prime_implicant</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">prime_implicants</span><span class="p">):</span>
+            <span class="n">mapping</span> <span class="o">=</span> <span class="n">map_minterm</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">minterm</span><span class="p">,</span> <span class="n">vs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prime_implicant</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span><span class="n">mapping</span><span class="p">):</span>
+                <span class="n">tmp_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;t[&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;]&#39;</span><span class="p">)</span>
+        <span class="n">ret_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="o">+</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_list</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;)&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">expr</span><span class="p">(</span><span class="s1">&#39;&amp;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ret_list</span><span class="p">))</span></div>
+
+
+<span class="c1">#print(&quot;--- FUNCTION 1 (N=2) ---&quot;)</span>
+<span class="c1">#q = qm.QuineMcCluskey()</span>
+<span class="c1">#print(&quot;Variables for function g:&quot;)</span>
+<span class="c1">#Y = exprvars(&#39;y&#39;, 2)</span>
+<span class="c1">#print(Y)</span>
+<span class="c1">#print(&quot;Expression for function g:&quot;)</span>
+<span class="c1">#g = expr(&#39;y[0]&amp;~y[1] | ~y[0]&amp;y[1] | y[0]&amp;y[1]&#39;)</span>
+<span class="c1">#print(g)</span>
+<span class="c1">#print(&quot;Truth Table for g:&quot;)</span>
+<span class="c1">#gt = expr2truthtable(g)</span>
+<span class="c1">#print(gt)</span>
+<span class="c1">#print(&quot;Result of QM for g:&quot;)</span>
+<span class="c1">#gs = q.simplify(onset(gt))</span>
+<span class="c1">#print(gs)</span>
+<span class="c1">#print(&quot;Simplified version of g:&quot;)</span>
+<span class="c1">#ge = expr(bitstring2expr(gs, variables(gt)))</span>
+<span class="c1">#print(ge)</span>
+<span class="c1">#print(&quot;Cover Table of g:&quot;)</span>
+<span class="c1">#cover_table(2, onset(gt), ge.xs, Y)</span>
+<span class="c1">#print(&quot;Cover Condition for g (with all solutions):&quot;)</span>
+<span class="c1">#gc = cover_condition(2, onset(gt), ge.xs, Y)</span>
+<span class="c1">#print(gc)</span>
+<span class="c1">#print(list(gc.satisfy_all()))</span>
+<span class="c1">#print(&quot;Cube Diagram of g:&quot;)</span>
+<span class="c1">#print_cube(2, g, ge.xs, Y)</span>
+
+<span class="c1">#print(&quot;--- FUNCTION 2 (N=3) ---&quot;)</span>
+<span class="c1">#q = qm.QuineMcCluskey()</span>
+<span class="c1">#print(&quot;Variables for function f:&quot;)</span>
+<span class="c1">#X = exprvars(&#39;x&#39;, 3)</span>
+<span class="c1">#print(&quot;Truth Table for f:&quot;)</span>
+<span class="c1">#ft = truthtable(X, &quot;00110101&quot;)</span>
+<span class="c1">#print(ft)</span>
+<span class="c1">#print(&quot;Expression for function f:&quot;)</span>
+<span class="c1">#func = truthtable2expr(ft)</span>
+<span class="c1">#print(func)</span>
+<span class="c1">#print(&quot;Result of QM for f:&quot;)</span>
+<span class="c1">#fs = q.simplify(onset(ft))</span>
+<span class="c1">#print(fs)</span>
+<span class="c1">#print(&quot;Simplified version of f:&quot;)</span>
+<span class="c1">#fe = expr(bitstring2expr(fs, variables(ft)))</span>
+<span class="c1">#print(fe)</span>
+<span class="c1">#print(&quot;Cover Table of f:&quot;)</span>
+<span class="c1">#cover_table(3, onset(ft), fe.xs, X)</span>
+<span class="c1">#print(&quot;Cover Condition for f (with all solutions):&quot;)</span>
+<span class="c1">#fc = cover_condition(3, onset(ft), fe.xs, X)</span>
+<span class="c1">#print(fc)</span>
+<span class="c1">#print(list(fc.satisfy_all()))</span>
+<span class="c1">#print(&quot;Cube Diagram of f:&quot;)</span>
+<span class="c1">#print_cube(3, func, fe.xs, X)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Python EDA Enhancements</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Philipp van Kempen.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
